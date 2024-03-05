@@ -222,3 +222,89 @@ let info : userTypeTwo = {
 
 //-------------------------------------------------------------------------------------------------------
 //INTERFACS
+
+interface IUser {
+    username: string;
+    email: string;
+    age: number;
+}
+//Estructura basica.
+
+interface employed extends IUser{
+    employed:number;
+}
+//Extension de IUser, employed tiene: username,email,age y employed.
+
+const emp : employed = {
+    username: 'max',
+    email: 'thompssonlite@gmail.com',
+    age: 110,
+    employed: 483438
+}
+//'emp' ahora vale por la cantidad de propiedades y valores que tiene IUser + employed (user,age,email,employed)
+
+
+
+
+
+//-------------------------------------------------------------------------------------------------------
+//GENERICS
+
+interface IAuthor {
+    id: number;
+    username: string;
+  }
+  
+  interface ICategory {
+    id: number;
+    title: string;
+  }
+  
+  interface IPost {
+    id: number;
+    title: string;
+    desc: string;
+    extra: IAuthor[] | ICategory[];
+  }
+  
+  interface IPostBetter<T> {
+    id: number;
+    title: string;
+    desc: string;
+    extra: T[];
+  }
+  const testMe: IPostBetter<string> = {
+    id: 1,
+    title: "post title",
+    desc: "post desc",
+    extra: ["str", "str2"],
+  };
+  
+  interface IPostEvenBetter<T extends object> {
+    id: number;
+    title: string;
+    desc: string;
+    extra: T[];
+  }
+  
+  const testMe2: IPostEvenBetter<{ id:number }> = {
+    id: 1,
+    title: "post title",
+    desc: "post desc",
+    extra: [{ id: 1 }],
+  };
+  
+  const testMe3: IPostEvenBetter<IAuthor> = {
+    id: 1,
+    title: "post title",
+    desc: "post desc",
+    extra: [{ id: 1, username: "john" }],
+  };
+  
+  const testMe4: IPostEvenBetter<ICategory> = {
+    id: 1,
+    title: "post title",
+    desc: "post desc",
+    extra: [{ id: 1, title: "cat" }],
+  };
+
